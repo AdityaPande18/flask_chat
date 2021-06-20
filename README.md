@@ -1,2 +1,2 @@
 # Flask Chat App
-![](Screenshot/GIF1.gif)
+![](Screenshots/GIF1.gif)
