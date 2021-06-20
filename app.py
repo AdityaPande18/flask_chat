@@ -9,9 +9,9 @@ from form_fields import *
 from models import *
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = "Secret Key"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("://", "ql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://xkplqgbvnrqczd:4cf1668c059d5a0ec32f1ec7b760c1ed7920550433269419912243e851d0d921@ec2-174-129-225-160.compute-1.amazonaws.com:5432/d5c64pl74aeat1"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -90,4 +90,4 @@ def leave(data):
     send({'msg': data['username'] + " has left the " + data['room'] + " room.",}, room=data['room'])
 
 if __name__ == "__main__":
-    app.run()
+    socketio.run(app, debug=True)
