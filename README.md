@@ -1,3 +1,3 @@
 # Flask Chat App
 
-https://user-images.githubusercontent.com/54064683/122669425-e03b7200-d1da-11eb-89e0-5d59a45bf7ee.mp4
+https://user-images.githubusercontent.com/54064683/122669471-27296780-d1db-11eb-8c85-8efd7de41a75.mp4
