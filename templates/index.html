@@ -1,0 +1,43 @@
+{% from "form_helper.html" import displayField %}
+
+{% extends "layout.html" %}
+
+{% block title %} Registation {% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'message' %}
+                    <div class="alert alert-warning text-center" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ category }} text-center" role="alert">
+                {% endif %}
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="box basic-drop-shadow form-div">
+        <h2>Register now!</h2>
+
+        <form action="{{ url_for('index') }}", method="POST">
+            {{ displayField(form.username, 'Username', autocomplete="off", autofocus=true) }}
+            {{ displayField(form.password, 'Password') }}
+            {{ displayField(form.confirm_password, 'Retype Password') }}
+            
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-dark">
+            </div>
+            
+            {{ form.csrf_token }}
+        </form>
+
+        <hr>
+
+        <p>Already have an account? <a href={{url_for('login')}}>Login here</a>.</p>
+    </div>
+
+
+
+{% endblock %}

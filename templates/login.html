@@ -1,0 +1,38 @@
+
+{% from 'form_helper.html' import displayField %}
+{% extends "layout.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'message' %}
+                    <div class="alert alert-warning text-center" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ category }} text-center" role="alert">
+                {% endif %}
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="box basic-drop-shadow form-div">
+        <h2>Login now!</h2>
+        <p>Enter you username/password to start RChat</p>
+
+        <form action="{{ url_for('login') }}", method="POST">
+            {{ displayField(form.username, 'Username', autocomplete="off", autofocus=true) }}
+            {{ displayField(form.password, 'Password') }}
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-dark">
+            </div>
+            {{ form.csrf_token }}
+        </form>
+
+        <hr>
+
+        <p>Have not registered? <a href={{url_for('index')}}>Register here</a>.</p>
+    </div>
+{% endblock %}

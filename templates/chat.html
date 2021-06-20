@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel = "stylesheet" 
+       href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title></title>
+
+    <style>
+          @media (max-width: 500px) {
+              #input-handler{
+                    max-width: 90% !important;
+                    margin: auto !important;
+              }
+          }
+
+          .select-room:hover{
+              cursor: pointer;
+          }
+          .box {
+            padding: 1%;
+            background-color: ghostwhite;
+            color: gray;
+            vertical-align: middle;
+            }
+            .basic-drop-shadow {
+            box-shadow: 0 0 10px;
+            }
+            .box-current-user{
+                padding: 1%;
+                background-color: ghostwhite;
+                color: gray;
+                vertical-align: middle;
+                text-align: end;
+            }
+            .box-joining{
+                padding: 1%;
+                margin-top: 1%;
+                background-color: ghostwhite;
+                color: gray;
+                vertical-align: middle;
+                text-align: center;
+            }
+    </style>    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Rooms</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            {% for room in rooms %}
+                <li class="nav-item active">
+                    <a class="nav-link select-room">{{ room|title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        </div>
+        <a class="btn btn-primary my-2 my-sm-0" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'message' %}
+                    <div class="alert alert-warning text-center" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ category }} text-center" role="alert">
+                {% endif %}
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h3 id="room-header" class="text-center"></h3>
+    <div id="main-content" class="d-flex align-items-center justify-content-center" style="margin-top: 5%;">
+        <div id="display-message-section" style="min-width:50%; padding: 2em; padding-bottom:0; padding-top:0; max-height: 344;
+        overflow: auto; min-height: 344" class="box basic-drop-shadow"></div> 
+    </div>
+    <div style="max-width: 50%; margin-left: 25%;" id="input-handler" class="d-flex align-items-center justify-content-center">
+        <input id="user_message" style="width: 90%; display: inline; margin: auto;" class="form-control" type="text">
+        <input id="send_message" style="margin: auto; width: auto;" type="submit" class="btn btn-success" value="Send">
+    </div>
+    
+    <script type="text/javascript">
+        const username = `{{username}}`;
+    </script>
+
+    <script src="{{ url_for('static', filename='scripts/chat.js') }}"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src = "https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+        integrity = "sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+        crossorigin = "anonymous">
+    </script>
+    
+    <!-- Popper -->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+        integrity = "sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+        crossorigin = "anonymous">
+    </script>
+    
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
+    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+        integrity = "sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+        crossorigin = "anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='scripts/socketio.js') }}"></script>
+</body>
+</html>
